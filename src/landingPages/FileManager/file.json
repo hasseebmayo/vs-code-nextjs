@@ -1,0 +1,17 @@
+{
+  "mainFolder": {
+    "name": "Vs code"
+  },
+  "subFolder": [
+    {
+      "folderName": "Something",
+      "files": [
+        {
+          "language": "jsx",
+          "value": "",
+          "id": "someId"
+        }
+      ]
+    }
+  ]
+}

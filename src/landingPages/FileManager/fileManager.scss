@@ -1,0 +1,82 @@
+@import "../../style/variables";
+.vs-filemanager {
+  width: $filemanager-width;
+  height: 100vh;
+  background-color: $filemanager-bg;
+  display: flex;
+  flex-direction: column;
+  // Header Style
+  .vs-filemanager-header {
+    padding: 8px 12px 8px 20px;
+    svg {
+      cursor: pointer;
+    }
+    h2 {
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      text-transform: uppercase;
+      color: $vs-text-priamry;
+    }
+  }
+  // File manage Files Style
+  .vs-filemanager-files {
+    padding: 3px 12px 2px 4px;
+    height: 95%;
+    .vs-filemanager-files-main {
+      height: 100%;
+      .vs-filemanager-subfiles {
+        & > div {
+          cursor: pointer;
+          span {
+            font-size: 11px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            text-transform: uppercase;
+            color: $vs-text-priamry;
+          }
+        }
+        .vs-filemanager-subfiles-file {
+          display: flex;
+          gap: 30px;
+          width: 90%;
+          justify-content: space-between;
+          align-items: center;
+          svg {
+            cursor: pointer;
+          }
+        }
+      }
+      .vs-files-main-folder {
+        margin-bottom: 5px;
+        & > div {
+          & > span {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+    .vs-filemanager-files-container {
+      height: 95%;
+      overflow-y: auto;
+      padding-left: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+}
+
+.file-rename-input {
+  background: transparent;
+  color: $vs-text-priamry;
+  border: 1px solid $vs-text-priamry;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+.file-rename-error {
+  border: 1px solid red;
+  outline: none;
+}

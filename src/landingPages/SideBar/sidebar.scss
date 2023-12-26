@@ -1,0 +1,29 @@
+@import "../../style/variables";
+
+.vs-sidebar {
+  width: $sidebar-width;
+  height: 100vh;
+  background-color: $sidebar-bg;
+  & > ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 100%;
+    // gap: 12px;s
+
+    li {
+      cursor: pointer;
+      padding-inline: 5px;
+
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      color: #808080;
+    }
+    .sidebar-icon-active {
+      color: #fff;
+      border-left: 2px solid #fff;
+    }
+  }
+}

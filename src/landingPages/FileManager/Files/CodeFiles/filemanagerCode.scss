@@ -1,0 +1,21 @@
+@import "../../../../style/variables";
+.filemanager-code-files {
+  padding-top: 5px;
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  & > div {
+    &:hover {
+      background-color: #292929;
+    }
+    & > span {
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      text-transform: uppercase;
+      color: $vs-text-priamry;
+    }
+  }
+}

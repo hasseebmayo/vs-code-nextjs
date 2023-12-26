@@ -1,0 +1,50 @@
+@import "../../style/variables";
+.vs-editor {
+  width: calc(100% - ($sidebar-width + $filemanager-width));
+  height: 100vh;
+  background-color: $editor-bg;
+  .vs-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: $filemanager-bg;
+
+    .vs-editor-header-filename {
+      display: flex;
+      gap: 4px;
+      width: 90%;
+      overflow-x: auto;
+      & > div {
+        .vs-editor-header-filename-icon {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+        }
+        background-color: $editor-header-nonactive;
+        padding: 8px 12px;
+
+        span {
+          font-size: 11px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+          color: #fff;
+        }
+        svg {
+          cursor: pointer;
+        }
+      }
+    }
+    .vs-editor-header-icons {
+      display: flex;
+      padding: 5px 12px;
+      align-items: center;
+      width: 9%;
+      gap: 7px;
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+}
