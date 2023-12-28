@@ -12,7 +12,7 @@ type fromRenameType = {
   setIsRenamed?: Dispatch<React.SetStateAction<boolean>>;
   addFile?: boolean;
 };
-const FileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
+const CodeFileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
   const {
     register,
     formState: { errors },
@@ -75,4 +75,4 @@ const FileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
   );
 };
 
-export default FileRename;
+export default CodeFileRename;

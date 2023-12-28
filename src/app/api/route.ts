@@ -1,5 +1,6 @@
 import { mongoDBConnection } from "@/dbConfig/DbConfig";
 import { FolderFileModel } from "@/models/FolderFiles";
+
 mongoDBConnection();
 export async function GET(req: Request, res: Response) {
   try {
@@ -22,5 +23,31 @@ export async function GET(req: Request, res: Response) {
     console.log(error);
   }
 }
-export async function POST() {}
+export async function POST(req: Request) {
+  try {
+    const { folderName } = await req.json();
+    if (folderName) {
+      const newFolder = new FolderFileModel({
+        folderName,
+      });
+
+      const savedFolder = await newFolder.save();
+      if (savedFolder) {
+        return Response.json({
+          message: "New Folder is added",
+          data: savedFolder,
+        });
+      }
+    } else {
+      return Response.json(
+        {
+          message: "Some issues occured!",
+        },
+        { status: 404 }
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function PUT() {}

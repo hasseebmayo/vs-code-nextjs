@@ -12,7 +12,7 @@ const FileMananger = () => {
     useState<fileManangerTypeFolder[]>(filesArraySample);
   const { updateURL } = useSearchParamsHook();
   const { response } = useFolderFiles();
-  console.log(response);
+
   return (
     <div className="vs-filemanager">
       <FileManagerHeader
@@ -21,7 +21,7 @@ const FileMananger = () => {
         }}
       />
       <div className="vs-filemanager-files">
-        <FileManagerFiles filesArray={filesArray} />
+        <FileManagerFiles filesArray={response} />
       </div>
     </div>
   );

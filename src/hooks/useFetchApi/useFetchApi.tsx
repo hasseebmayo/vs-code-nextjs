@@ -14,7 +14,7 @@ export function useFetch(queryKey: string[], path: string, config = {}) {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey,
+    queryKey: queryKey,
     queryFn: fetchData,
     ...config,
   });
