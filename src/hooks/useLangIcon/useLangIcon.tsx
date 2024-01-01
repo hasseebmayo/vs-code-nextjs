@@ -20,6 +20,10 @@ const useLangIcon = () => {
       icon: <JSX />,
     },
     {
+      type: "ts",
+      icon: <JSX />,
+    },
+    {
       type: "css",
       icon: <CSSIcon />,
     },

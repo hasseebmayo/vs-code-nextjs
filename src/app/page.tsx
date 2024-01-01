@@ -1,14 +1,16 @@
-import HorizentalStack from "@/components/FlexStack/HorizentalStack/HorizentalStack";
-import VerticalStack from "@/components/FlexStack/VerticalStack/VerticalStack";
+"use client";
 import CodeEditor from "@/landingPages/CodeEditor/CodeEditor";
 import FileMananger from "@/landingPages/FileManager/FileMananger";
 import SideBar from "@/landingPages/SideBar/SideBar";
+import { OpenFilesProvider } from "@/components/ContextApi/ContextFile";
 export default function Home() {
   return (
-    <main className="vs-code-editor">
-      <SideBar />
-      <FileMananger />
-      <CodeEditor />
-    </main>
+    <OpenFilesProvider>
+      <main className="vs-code-editor">
+        <SideBar />
+        <FileMananger />
+        <CodeEditor />
+      </main>
+    </OpenFilesProvider>
   );
 }

@@ -28,6 +28,8 @@ const FileManagerFiles = ({ filesArray }: FileManagerFiles) => {
               key={index}
               folderTitle={file?.folderName}
               files={file?.files}
+              id={file?._id}
+              index={index}
             />
           ))}
         </VerticalStack>

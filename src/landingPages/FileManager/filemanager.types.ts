@@ -1,11 +1,14 @@
 export type filesType = {
-  type: string;
+  fileType: string;
   value: string;
+  _id?: string;
+
   fileName: string;
 };
 export type fileManangerTypeFolder = {
   folderName: string;
   files: filesType[];
+  _id?: string;
 };
 
 export const filesArraySample: fileManangerTypeFolder[] = [
@@ -13,12 +16,12 @@ export const filesArraySample: fileManangerTypeFolder[] = [
     folderName: "Folder One",
     files: [
       {
-        type: "js",
+        fileType: "js",
         value: "",
         fileName: "index",
       },
       {
-        type: "css",
+        fileType: "css",
         value: "",
         fileName: "index",
       },
@@ -28,12 +31,12 @@ export const filesArraySample: fileManangerTypeFolder[] = [
     folderName: "Folder Two",
     files: [
       {
-        type: "html",
+        fileType: "html",
         value: "",
         fileName: "index",
       },
       {
-        type: "css",
+        fileType: "css",
         value: "",
         fileName: "index",
       },

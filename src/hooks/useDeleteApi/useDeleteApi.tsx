@@ -4,14 +4,13 @@ type dataRequestType = {
   path: string;
   data: any;
 };
-const usePostApi = (key: string = "none ") => {
+const useDeleteApi = () => {
   const postRequest = (data: dataRequestType) => {
-    return axios.post(data.path, data.data);
+    return axios.delete(data.path, data.data);
   };
-
   const { mutate, isPending } = useMutation({
     mutationFn: postRequest,
-    mutationKey: [key],
+    mutationKey: ["adding-folder"],
   });
   return {
     mutate,
@@ -19,4 +18,4 @@ const usePostApi = (key: string = "none ") => {
   };
 };
 
-export default usePostApi;
+export default useDeleteApi;

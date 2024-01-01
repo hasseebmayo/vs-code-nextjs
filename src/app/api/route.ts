@@ -1,11 +1,12 @@
 import { mongoDBConnection } from "@/dbConfig/DbConfig";
 import { FolderFileModel } from "@/models/FolderFiles";
+import { NextApiRequest } from "next";
 
 mongoDBConnection();
 export async function GET(req: Request, res: Response) {
   try {
     const files = await FolderFileModel.find({});
-    console.log("its running");
+
     if (files) {
       return Response.json(files, {
         status: 200,
@@ -50,4 +51,29 @@ export async function POST(req: Request) {
     console.log(error);
   }
 }
-export async function PUT() {}
+export async function PATCH(req: Request) {
+  const { id } = await req.json();
+  console.log(id);
+  try {
+    if (!id) {
+      Response.json(
+        { message: "Please Provide Folder Id" },
+        {
+          status: 400,
+        }
+      );
+      return;
+    }
+    const deleteFolder = await FolderFileModel.findByIdAndDelete(id);
+    return Response.json(
+      {
+        message: "Folder is Deleted Successfully!",
+      },
+      {
+        status: 200,
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -4,7 +4,7 @@ import useSearchParamsHook from "@/hooks/useSearchParamsHook/useSearchParamsHook
 import React, { Dispatch, FormEvent, useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { QueryCache, useQueryClient } from "@tanstack/react-query";
-import { querykeys } from "@/Utils/QueryKeys/queryKeys";
+import { mutateKeys, querykeys } from "@/Utils/QueryKeys/queryKeys";
 type fileRename = {
   folderName: string;
 };
@@ -18,7 +18,7 @@ const FileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
     formState: { errors },
     handleSubmit,
   } = useForm<fileRename>();
-  const { mutate, isPending } = usePostApi();
+  const { mutate, isPending } = usePostApi(mutateKeys.ADD_FOLDER);
   const queryClient = useQueryClient();
   const queryCache = new QueryCache();
 
@@ -46,9 +46,11 @@ const FileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
         },
         {
           onSuccess: (res) => {
+            console.log(res);
             queryClient.invalidateQueries({
               queryKey: [querykeys.GET_FOLDER_FILE],
             });
+            deleteQuery("addFolder");
           },
         }
       );

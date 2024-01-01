@@ -4,9 +4,9 @@ import useSearchParamsHook from "@/hooks/useSearchParamsHook/useSearchParamsHook
 import React, { Dispatch, FormEvent, useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { QueryCache, useQueryClient } from "@tanstack/react-query";
-import { querykeys } from "@/Utils/QueryKeys/queryKeys";
+import { mutateKeys, querykeys } from "@/Utils/QueryKeys/queryKeys";
 type fileRename = {
-  folderName: string;
+  fileName: string;
 };
 type fromRenameType = {
   setIsRenamed?: Dispatch<React.SetStateAction<boolean>>;
@@ -18,43 +18,57 @@ const CodeFileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
     formState: { errors },
     handleSubmit,
   } = useForm<fileRename>();
-  const { mutate, isPending } = usePostApi();
+  const { mutate, isPending } = usePostApi(mutateKeys.ADD_FILE);
   const queryClient = useQueryClient();
   const queryCache = new QueryCache();
+  const { params, deleteQuery } = useSearchParamsHook();
+  const addFileId = params.get("addfile");
 
   const formRef = useRef<HTMLFormElement | null>(null);
-  const { deleteQuery } = useSearchParamsHook();
+
   const handleOutsideClick = () => {
     console.log("form Outside Clicked");
     // Add your logic here for outside click
   };
   const onSubmit: SubmitHandler<fileRename> = (data) => {
+    const { fileName } = data;
+    const [name, type] = fileName.split(".");
     queryClient.setQueryData([querykeys.GET_FOLDER_FILE], (queryData: any) => {
-      return [
-        ...queryData,
-        {
-          folderName: data.folderName,
-          files: [],
-        },
-      ];
-    });
-    if (addFile) {
-      mutate(
-        {
-          data,
-          path: "/api",
-        },
-        {
-          onSuccess: (res) => {
-            queryClient.invalidateQueries({
-              queryKey: [querykeys.GET_FOLDER_FILE],
-            });
-          },
+      const updatedQueryData = queryData?.map((d: any) => {
+        if (d._id === addFileId) {
+          // Assuming you have a specific data object to push into the files array
+          const newData = {
+            fileName: name,
+            fileType: type,
+            value: "",
+          };
+          // Push the new data into the files array of the found element
+          d.files.push(newData);
         }
-      );
-      return;
-    }
-    setIsRenamed?.(false);
+        return d;
+      });
+
+      return updatedQueryData;
+    });
+    mutate(
+      {
+        data: {
+          fileType: type,
+          fileName: name,
+          id: addFileId,
+        },
+        path: "/api/file",
+      },
+      {
+        onSuccess: (res) => {
+          console.log(res);
+          queryClient.invalidateQueries({
+            queryKey: [querykeys.GET_FOLDER_FILE],
+          });
+          deleteQuery("addfile");
+        },
+      }
+    );
   };
 
   const customSubmitHandler = handleSubmit(onSubmit);
@@ -63,12 +77,19 @@ const CodeFileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
     <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
       <input
         className={
-          errors.folderName
+          errors.fileName
             ? " file-rename-input file-rename-error"
             : "file-rename-input"
         }
-        {...register("folderName", {
+        {...register("fileName", {
           required: true,
+          validate: (val) => {
+            const allowedExtensions = /\.(ts|js|css|html|jsx|sass|scss)$/i;
+            if (!allowedExtensions.test(val)) {
+              return "Invalid file extension. Allowed extensions are .ts, .js, .css, .html, .jsx, .sass, .scss";
+            }
+            return true;
+          },
         })}
       />
     </form>

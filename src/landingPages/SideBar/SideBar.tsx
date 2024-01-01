@@ -11,7 +11,7 @@ import useSearchParamsHook from "@/hooks/useSearchParamsHook/useSearchParamsHook
 const SideBar = () => {
   const { params, updateURL } = useSearchParamsHook();
   const path = params.get("position") ? params.get("position") : 0;
-  console.log(path);
+
   const icons: ReactNode[] = [
     <FileIcon />,
     <SearchIcon />,
