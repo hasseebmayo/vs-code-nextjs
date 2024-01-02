@@ -2,10 +2,14 @@ import { useEffect } from "react";
 
 type KeyHandler = () => void;
 
-export const useKeyPress = (targetKey: string, onAction: KeyHandler) => {
+export const useKeyPress = (
+  targetKey: string,
+  onAction: KeyHandler,
+  checkShift: boolean = false
+) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === targetKey) {
+      if ((!checkShift || event.shiftKey) && event.key === targetKey) {
         onAction();
       }
     };

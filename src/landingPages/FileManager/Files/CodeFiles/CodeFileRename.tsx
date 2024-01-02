@@ -61,7 +61,6 @@ const CodeFileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
       },
       {
         onSuccess: (res) => {
-          console.log(res);
           queryClient.invalidateQueries({
             queryKey: [querykeys.GET_FOLDER_FILE],
           });

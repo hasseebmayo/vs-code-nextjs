@@ -10,19 +10,35 @@ const CodeEditor = () => {
   const { params } = useSearchParamsHook();
   const addFileId = params.get("openFile");
   const openFile = openedFiles.find((d: any) => d._id == addFileId);
-  console.log(openedFiles);
+
   return (
     <div className="vs-editor">
       <CodeEditorHeader />
-      <Editor
-        height={"100vh"}
-        language={openFile?.fileType}
-        theme="vs-dark"
-        value={openFile?.value}
-        onChange={(val) => {
-          onChangeCode(addFileId, val);
-        }}
-      />
+      {addFileId ? (
+        <Editor
+          height={"100vh"}
+          language={
+            openFile?.fileType == "js" ? "javascript" : openFile?.fileType
+          }
+          theme="vs-dark"
+          value={openFile?.value}
+          onChange={(val) => {
+            onChangeCode(addFileId, val);
+          }}
+        />
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100vh",
+            color: "white",
+          }}
+        >
+          No File is opened!
+        </div>
+      )}
     </div>
   );
 };

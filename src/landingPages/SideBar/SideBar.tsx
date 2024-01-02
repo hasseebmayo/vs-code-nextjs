@@ -14,10 +14,10 @@ const SideBar = () => {
 
   const icons: ReactNode[] = [
     <FileIcon />,
-    <SearchIcon />,
-    <CommitIcon />,
-    <DebugIcon />,
-    <ExtensionIcon />,
+    // <SearchIcon />,
+    // <CommitIcon />,
+    // <DebugIcon />,
+    // <ExtensionIcon />,
   ];
   return (
     <div className="vs-sidebar">
