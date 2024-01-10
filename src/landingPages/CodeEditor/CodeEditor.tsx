@@ -14,7 +14,7 @@ const CodeEditor = () => {
   useEffect(() => {
     const openFile = openedFiles.find((d: any) => d._id == addFileId);
     setEditorCode(openFile);
-  }, [addFileId]);
+  }, [addFileId, openedFiles]);
 
   return (
     <div className="vs-editor">

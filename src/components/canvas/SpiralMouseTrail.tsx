@@ -99,17 +99,17 @@ const SpiralMouseTrail: React.FC = () => {
     return Math.round(Math.random() * (max - min)) + min;
   };
 
-  useEffect(() => {
-    resizeReset();
-    animationLoop();
-  }, []);
+  // useEffect(() => {
+  //   resizeReset();
+  //   animationLoop();
+  // }, []);
 
-  useEffect(() => {
-    window.addEventListener("resize", resizeReset);
-    return () => {
-      window.removeEventListener("resize", resizeReset);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("resize", resizeReset);
+  //   return () => {
+  //     window.removeEventListener("resize", resizeReset);
+  //   };
+  // }, []);
 
   return (
     <canvas

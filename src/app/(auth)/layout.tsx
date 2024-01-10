@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import Home from "../../assets/images/Home.svg";
 import { useRouter } from "next/navigation";
 
-const layout = ({ children }: { children: ReactNode }) => {
+const AuthLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   return (
     <>
@@ -19,4 +19,4 @@ const layout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default layout;
+export default AuthLayout;

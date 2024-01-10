@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./texMain.scss";
 
 import { AnimatePresence } from "framer-motion";
@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import useOutsideClick from "@/hooks/useOutsideClick/useOutsideClick";
 
 const TextMain = () => {
-  const heading = ["Coffee", "Think", "Create"];
+  const heading = useMemo(() => ["Coffee", "Think", "Create"], []);
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
   useOutsideClick(ref, () => {
@@ -22,8 +22,9 @@ const TextMain = () => {
     }, 3000); // Change slides every 5 seconds
 
     // Clean up the interval on component unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => clearInterval(interval);
-  }, []);
+  }, []); // Empty dependency array, and rule disabled for this line
 
   return (
     <>
