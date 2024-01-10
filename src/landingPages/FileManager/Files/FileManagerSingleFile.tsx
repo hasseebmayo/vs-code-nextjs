@@ -14,6 +14,7 @@ import useKeyPress from "@/hooks/useKeyPress/useKeyPress";
 import { querykeys } from "@/Utils/QueryKeys/queryKeys";
 import { useQueryClient } from "@tanstack/react-query";
 import usePatchApi from "@/hooks/usePatchApi/usePatchApi";
+import useToastify from "@/hooks/useToastify/useToastify";
 
 type vsFiles = {
   folderTitle: string;
@@ -36,6 +37,7 @@ const FileManagerSingleFile = ({
   const fileNameRef = useRef<HTMLSpanElement | null>(null);
   const { mutate } = usePatchApi();
   const queryClient = useQueryClient();
+  const { fireToast } = useToastify();
   const handleDeleteAction = () => {
     // Your logic for delete action (e.g., delete from the database)
     if (isActive) {
@@ -48,7 +50,7 @@ const FileManagerSingleFile = ({
         },
         {
           onSuccess: (res) => {
-            console.log(res);
+            fireToast("Folder is Deleted Successfully!", "success");
             queryClient.invalidateQueries({
               queryKey: [querykeys.GET_FOLDER_FILE],
             });
@@ -85,7 +87,6 @@ const FileManagerSingleFile = ({
         setIsActive(true);
       }}
       onBlur={() => {
-        console.log("on Blur");
         setIsActive(false);
       }}
     >
@@ -129,16 +130,6 @@ const FileManagerSingleFile = ({
             >
               {folderTitle}
             </span>
-            {mainFolder ? null : (
-              <HorizentalStack gap="10">
-                {/* <Delete /> */}
-                <PlusIcon
-                  onClick={() => {
-                    updateURL("addfile", id!);
-                  }}
-                />
-              </HorizentalStack>
-            )}
           </div>
         )}
       </HorizentalStack>

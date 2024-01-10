@@ -11,6 +11,7 @@ export async function POST(req: Request) {
     const isExiest = await UserModel.findOne({
       userName,
     });
+    console.log(userName);
     if (isExiest) {
       return Response.json(
         {
@@ -24,11 +25,13 @@ export async function POST(req: Request) {
     const newUser = new UserModel({ userName });
     const savedUser = await newUser.save();
     if (savedUser) {
-      const token = jwt.sign(savedUser._id, process.env.TOKEN_SECRET!);
+      console.log(savedUser);
+
+      // const token = jwt.sign(savedUser._id, process.env.TOKEN_SECRET!);
       const response = NextResponse.json({
         message: "Signed up Successfully!l",
       });
-      response.cookies.set("token", token, {
+      response.cookies.set("token", userName, {
         httpOnly: true,
       });
       return response;

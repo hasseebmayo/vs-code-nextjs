@@ -17,5 +17,5 @@ const folderFilesSchema = new Schema<IUserDocument>({
   ],
 });
 export const UserModel: Model<IUserDocument> =
-  mongoose.models.FolderFile ||
+  mongoose.models.Users ||
   mongoose.model<IUserDocument>("Users", folderFilesSchema);

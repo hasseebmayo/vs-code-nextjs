@@ -3,21 +3,25 @@ import "./previewCode.scss";
 import useSearchParamsHook from "@/hooks/useSearchParamsHook/useSearchParamsHook";
 import { useOpenedFiles } from "@/components/ContextApi/ContextFile";
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { querykeys } from "@/Utils/QueryKeys/queryKeys";
 
 const PreviewCode = () => {
   const { params } = useSearchParamsHook();
   const { openedFiles } = useOpenedFiles();
   const openFileId = params.get("openFile");
+  const queryClient = useQueryClient();
   const [srcDoc, setSrcDoc] = useState<any>();
   const openFile = openedFiles?.find((d: any) => d?._id == openFileId);
+
   const opendFolder = openedFiles?.filter(
     (file: any) => file?.folderId == openFile?.folderId
   );
+  const folderData: any = queryClient.getQueryData([querykeys.GET_FOLDER_FILE]);
   const fileContentMap = opendFolder?.reduce((acc: any, file: any) => {
     acc[file?.fileType] = file?.value;
     return acc;
   }, {});
-  console.log(fileContentMap);
 
   useEffect(() => {
     setSrcDoc(`
@@ -27,7 +31,7 @@ const PreviewCode = () => {
            <script>${fileContentMap?.js}</script>
          </html>
           `);
-  }, [openFileId]);
+  }, [openFileId, fileContentMap]);
   return (
     <Rnd
       default={{

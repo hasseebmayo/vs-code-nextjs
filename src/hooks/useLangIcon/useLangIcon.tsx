@@ -42,7 +42,7 @@ const useLangIcon = () => {
   ];
   function findIcon(type: string) {
     const filteredIcon = icons.find(
-      (icons) => icons.type == type.toLowerCase()
+      (icons) => icons.type == type?.toLowerCase()
     );
     return filteredIcon?.icon;
   }

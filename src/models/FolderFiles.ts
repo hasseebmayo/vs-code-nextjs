@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 
 // Define a TypeScript interface for the file object
-interface IFile {
+export interface IFile {
   fileName: string;
   fileType: string;
   value: string;

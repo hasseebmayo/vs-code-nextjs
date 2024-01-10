@@ -1,14 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 const useOutsideClick = (
   ref: React.RefObject<HTMLElement>,
   callback: () => void
 ) => {
-  const handleClickOutside = (event: MouseEvent) => {
-    if (ref.current && !ref.current.contains(event.target as Node)) {
-      callback();
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        callback();
+      }
+    },
+    [ref, callback]
+  );
 
   useEffect(() => {
     // Attach the event listener when the component mounts
@@ -18,7 +21,7 @@ const useOutsideClick = (
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref, callback]);
+  }, [handleClickOutside]);
 };
 
 export default useOutsideClick;

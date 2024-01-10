@@ -50,13 +50,18 @@ export function OpenFilesProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("openedFiles", JSON.stringify(openedFiles));
   };
 
-  const removeFromLocalStorage = (folderId: string, fileId: string) => {
-    const updatedFiles = openedFiles.map((folder: any) => {
-      // if (folder.folderId === folderId) {
-      //   folder.files = folder.files.filter((file) => file._id !== fileId);
-      // }
-      return folder;
-    });
+  const removeFromLocalStorage = (fileId: string, last: boolean) => {
+    if (last) {
+      localStorage.removeItem("openedFiles");
+      setOpenedFiles([]);
+      return;
+    }
+    const updatedFiles = openedFiles.filter(
+      (folder: any) => folder?._id != fileId
+    );
+    console.log("Updated File", updatedFiles);
+    setOpenedFiles(updatedFiles);
+    localStorage.setItem("openedFiles", JSON.stringify(openedFiles));
   };
 
   const values = {
@@ -64,6 +69,7 @@ export function OpenFilesProvider({ children }: { children: ReactNode }) {
     setOpenedFiles,
     setToLocalStorage,
     onChangeCode,
+    removeFromLocalStorage,
   };
 
   return (

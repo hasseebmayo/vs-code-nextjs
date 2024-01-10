@@ -1,0 +1,61 @@
+@import "../../../style/variables";
+.login-main {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    //     border: 1px solid $editor-bg;
+    padding: 40px 20px;
+    border-radius: 10px;
+    background: white;
+    @media screen and (max-width: 1000px) {
+      width: 90%;
+    }
+    h1 {
+      color: $editor-bg;
+    }
+    div {
+      width: 100%;
+      input {
+        height: 30px;
+        width: 100%;
+        padding-left: 15px;
+        border: 1px solid grey;
+        border-radius: 7px;
+      }
+      .error-auth {
+        color: #ed4337;
+        font-size: 12px;
+      }
+    }
+
+    button {
+      background-color: $editor-bg;
+      color: white;
+      padding: 13px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+.no-accout {
+  display: flex;
+  width: 100%;
+  justify-content: right;
+  p {
+    cursor: pointer;
+  }
+}

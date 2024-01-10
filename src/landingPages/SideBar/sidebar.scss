@@ -3,6 +3,9 @@
 .vs-sidebar {
   width: $sidebar-width;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: $sidebar-bg;
   & > ul {
     display: flex;
@@ -24,6 +27,23 @@
     .sidebar-icon-active {
       color: #fff;
       border-left: 2px solid #fff;
+    }
+  }
+  .bottom-logout {
+    // margin-top: calc(100vh - 100px);
+    display: flex;
+    width: 100%;
+    padding-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      height: 32px;
+      width: 29px;
+      cursor: pointer;
+      path {
+        stroke: red !important;
+      }
     }
   }
 }

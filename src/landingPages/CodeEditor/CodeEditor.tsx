@@ -4,12 +4,17 @@ import { Editor } from "@monaco-editor/react";
 import CodeEditorHeader from "./CodeEditorHeader";
 import { useOpenedFiles } from "@/components/ContextApi/ContextFile";
 import useSearchParamsHook from "@/hooks/useSearchParamsHook/useSearchParamsHook";
+import { useEffect, useState } from "react";
 
 const CodeEditor = () => {
   const { openedFiles, onChangeCode } = useOpenedFiles();
+  const [editorCode, setEditorCode] = useState<any>();
   const { params } = useSearchParamsHook();
   const addFileId = params.get("openFile");
-  const openFile = openedFiles.find((d: any) => d._id == addFileId);
+  useEffect(() => {
+    const openFile = openedFiles.find((d: any) => d._id == addFileId);
+    setEditorCode(openFile);
+  }, [addFileId]);
 
   return (
     <div className="vs-editor">
@@ -18,10 +23,10 @@ const CodeEditor = () => {
         <Editor
           height={"100vh"}
           language={
-            openFile?.fileType == "js" ? "javascript" : openFile?.fileType
+            editorCode?.fileType == "js" ? "javascript" : editorCode?.fileType
           }
           theme="vs-dark"
-          value={openFile?.value}
+          value={editorCode?.value}
           onChange={(val) => {
             onChangeCode(addFileId, val);
           }}

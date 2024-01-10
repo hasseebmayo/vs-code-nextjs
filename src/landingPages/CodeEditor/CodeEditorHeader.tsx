@@ -1,17 +1,72 @@
 import React, { useEffect, useState } from "react";
 import HorizentalStack from "@/components/FlexStack/HorizentalStack/HorizentalStack";
-import CommitIcon from "../../assets/images/CommitIcon2.svg";
-import SplitScreen from "../../assets/images/SplitScreenitem.svg";
-import ThreeDots from "../../assets/images/ThreeDotsIcon.svg";
 import Cross from "../../assets/images/CrossIcon.svg";
 import useLangIcon from "@/hooks/useLangIcon/useLangIcon";
 import { useOpenedFiles } from "@/components/ContextApi/ContextFile";
 import useSearchParamsHook from "@/hooks/useSearchParamsHook/useSearchParamsHook";
+import usePutApi from "@/hooks/usePutApi/usePutApi";
 const CodeEditorHeader = () => {
   const { findIcon } = useLangIcon();
-  const { openedFiles } = useOpenedFiles();
-  const { updateURL, params } = useSearchParamsHook();
+  const { openedFiles, removeFromLocalStorage } = useOpenedFiles();
+  console.log(openedFiles);
+  const { updateURL, params, deleteQuery } = useSearchParamsHook();
+  const { mutate } = usePutApi();
+
   const addFileId = params.get("openFile");
+  async function onCrossHandle(id: string) {
+    try {
+      const alertCall = confirm("Do You want to Save Changes?");
+      const filteredFile = openedFiles?.find((d: any) => d?._id == id);
+
+      if (alertCall) {
+        mutate(
+          {
+            data: filteredFile,
+            path: "/api",
+          },
+          {
+            onSuccess: async (res) => {
+              if (openedFiles.length === 1) {
+                await removeFromLocalStorage(id, true);
+              } else {
+                await removeFromLocalStorage(id);
+              }
+
+              const previosId = openedFiles
+                ?.filter((d: any) => d._id != id)
+                .at(-1);
+
+              if (openedFiles.length !== 1) {
+                console.log("worked in length in no");
+                console.log(previosId);
+                updateURL("openFile", previosId._id);
+              } else {
+                deleteQuery("openFile");
+              }
+            },
+          }
+        );
+      } else {
+        if (openedFiles.length === 1) {
+          await removeFromLocalStorage(id, true);
+        } else {
+          await removeFromLocalStorage(id);
+        }
+
+        const previosId = openedFiles?.filter((d: any) => d._id != id).at(-1);
+
+        if (openedFiles.length !== 1) {
+          console.log("worked in length opposite");
+          console.log(previosId);
+          updateURL("openFile", previosId._id);
+        } else {
+          deleteQuery("openFile");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="vs-editor-header">
@@ -35,15 +90,9 @@ const CodeEditorHeader = () => {
               {findIcon(folder?.fileType)}
               <span>{folder?.fileName + "." + folder?.fileType}</span>
             </div>
-            <Cross />
+            <Cross onClick={() => onCrossHandle(folder?._id)} />
           </HorizentalStack>
         ))}
-      </div>
-
-      <div className="vs-editor-header-icons">
-        <CommitIcon />
-        <SplitScreen />
-        <ThreeDots />
       </div>
     </div>
   );

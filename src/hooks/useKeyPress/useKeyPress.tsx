@@ -19,7 +19,7 @@ export const useKeyPress = (
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [targetKey, onAction]);
+  }, [targetKey, onAction, checkShift]);
 };
 
 export default useKeyPress;

@@ -23,11 +23,10 @@ export async function POST(req: Request) {
     }
 
     if (user) {
-      const token = jwt.sign(user._id, process.env.TOKEN_SECRET!);
       const response = NextResponse.json({
         message: "Signed up Successfully!l",
       });
-      response.cookies.set("token", token, {
+      response.cookies.set("token", userName, {
         httpOnly: true,
       });
       return response;

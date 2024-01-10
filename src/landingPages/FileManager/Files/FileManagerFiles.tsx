@@ -12,7 +12,7 @@ const FileManagerFiles = ({ filesArray }: FileManagerFiles) => {
   const [isFilesOpen, setIsFilesOpened] = useState<boolean>(true);
   const { params, updateURL } = useSearchParamsHook();
   const isAddNew = params.get("addFolder");
-
+  console.log({ filesArray });
   return (
     <div className="vs-filemanager-files-main">
       <FileManagerSingleFile
@@ -22,17 +22,19 @@ const FileManagerFiles = ({ filesArray }: FileManagerFiles) => {
         isOpenedFolder={isFilesOpen}
       />
       {isFilesOpen ? (
-        <VerticalStack gap="4">
-          {filesArray?.map((file, index) => (
-            <FileManagerSingleFile
-              key={index}
-              folderTitle={file?.folderName}
-              files={file?.files}
-              id={file?._id}
-              index={index}
-            />
-          ))}
-        </VerticalStack>
+        filesArray?.length == 0 ? null : (
+          <VerticalStack gap="4">
+            {filesArray?.map((file, index) => (
+              <FileManagerSingleFile
+                key={index}
+                folderTitle={file?.folderName}
+                files={file?.files}
+                id={file?._id}
+                index={index}
+              />
+            ))}
+          </VerticalStack>
+        )
       ) : null}
       {isAddNew ? <FileAddNew /> : null}
     </div>
