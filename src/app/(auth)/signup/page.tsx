@@ -32,7 +32,6 @@ export default function Page() {
           router.push("/code");
         },
         onError: (err: any) => {
-          console.log(err.response);
           fireToast(err?.response?.data?.message, "error");
         },
       }

@@ -12,7 +12,7 @@ const FileManagerFiles = ({ filesArray }: FileManagerFiles) => {
   const [isFilesOpen, setIsFilesOpened] = useState<boolean>(true);
   const { params, updateURL } = useSearchParamsHook();
   const isAddNew = params.get("addFolder");
-  console.log({ filesArray });
+
   return (
     <div className="vs-filemanager-files-main">
       <FileManagerSingleFile

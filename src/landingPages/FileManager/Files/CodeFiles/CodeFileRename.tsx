@@ -27,7 +27,6 @@ const CodeFileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const handleOutsideClick = () => {
-    console.log("form Outside Clicked");
     // Add your logic here for outside click
   };
   const onSubmit: SubmitHandler<fileRename> = (data) => {

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 const useLocalStorage = () => {
   const [openedFiles, setOpenedFiles] = useState<any>([]);
-  console.log(openedFiles);
+
   useEffect(() => {
     const storedFiles = window.localStorage.getItem("openedFiles");
     if (storedFiles) {

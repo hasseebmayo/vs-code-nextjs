@@ -8,7 +8,7 @@ import usePutApi from "@/hooks/usePutApi/usePutApi";
 const CodeEditorHeader = () => {
   const { findIcon } = useLangIcon();
   const { openedFiles, removeFromLocalStorage } = useOpenedFiles();
-  console.log(openedFiles);
+
   const { updateURL, params, deleteQuery } = useSearchParamsHook();
   const { mutate } = usePutApi();
 
@@ -37,8 +37,6 @@ const CodeEditorHeader = () => {
                 .at(-1);
 
               if (openedFiles.length !== 1) {
-                console.log("worked in length in no");
-                console.log(previosId);
                 updateURL("openFile", previosId._id);
               } else {
                 deleteQuery("openFile");
@@ -56,8 +54,6 @@ const CodeEditorHeader = () => {
         const previosId = openedFiles?.filter((d: any) => d._id != id).at(-1);
 
         if (openedFiles.length !== 1) {
-          console.log("worked in length opposite");
-          console.log(previosId);
           updateURL("openFile", previosId._id);
         } else {
           deleteQuery("openFile");

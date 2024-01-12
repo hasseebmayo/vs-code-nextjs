@@ -30,9 +30,12 @@ export function OpenFilesProvider({ children }: { children: ReactNode }) {
     if (isAdded) {
       return;
     }
-    const updatedFiles = [...openedFiles, data];
-    window.localStorage.setItem("openedFiles", JSON.stringify(updatedFiles));
-    setOpenedFiles(updatedFiles);
+    console.log({
+      data,
+      openedFiles,
+    });
+    setOpenedFiles((prev: any) => [...prev, data]);
+    window.localStorage.setItem("openedFiles", JSON.stringify(openedFiles));
   };
   const onChangeCode = (id: string, value: any) => {
     setOpenedFiles((prev: any) => {
@@ -59,7 +62,7 @@ export function OpenFilesProvider({ children }: { children: ReactNode }) {
     const updatedFiles = openedFiles.filter(
       (folder: any) => folder?._id != fileId
     );
-    console.log("Updated File", updatedFiles);
+
     setOpenedFiles(updatedFiles);
     localStorage.setItem("openedFiles", JSON.stringify(openedFiles));
   };

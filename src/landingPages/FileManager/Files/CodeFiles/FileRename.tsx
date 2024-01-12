@@ -27,7 +27,6 @@ const FileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
   const formRef = useRef<HTMLFormElement | null>(null);
   const { deleteQuery } = useSearchParamsHook();
   const handleOutsideClick = () => {
-    console.log("form Outside Clicked");
     // Add your logic here for outside click
   };
   const onSubmit: SubmitHandler<fileRename> = (data) => {
@@ -39,7 +38,7 @@ const FileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
         },
         {
           onSuccess: (res) => {
-            fireToast("Folder created Successfully", "success");
+            // fireToast("Folder created Successfully", "success");
             queryClient.invalidateQueries({
               queryKey: [querykeys.GET_FOLDER_FILE],
             });

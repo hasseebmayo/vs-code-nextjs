@@ -9,6 +9,7 @@ type input = {
   userName: string;
 };
 export default function LoginPage() {
+  const router = useRouter();
   const {
     register,
     formState: { errors },
@@ -27,12 +28,14 @@ export default function LoginPage() {
       {
         onSuccess: () => {
           fireToast("Logged in sucessfully", "success");
-          router.push("/code");
+          window.location.reload();
+        },
+        onError: (ERR: any) => {
+          fireToast(ERR?.response.data.message, "error");
         },
       }
     );
   };
-  const router = useRouter();
 
   return (
     <div className="login-main">

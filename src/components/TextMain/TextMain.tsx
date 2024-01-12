@@ -11,9 +11,7 @@ const TextMain = () => {
   const heading = useMemo(() => ["Coffee", "Think", "Create"], []);
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
-  useOutsideClick(ref, () => {
-    console.log("clicked ouside!");
-  });
+  useOutsideClick(ref, () => {});
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   useEffect(() => {
