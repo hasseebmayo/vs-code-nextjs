@@ -31,15 +31,6 @@ const FileRename = ({ setIsRenamed, addFile }: fromRenameType) => {
     // Add your logic here for outside click
   };
   const onSubmit: SubmitHandler<fileRename> = (data) => {
-    queryClient.setQueryData([querykeys.GET_FOLDER_FILE], (queryData: any) => {
-      return [
-        ...queryData,
-        {
-          folderName: data.folderName,
-          files: [],
-        },
-      ];
-    });
     if (addFile) {
       mutate(
         {
